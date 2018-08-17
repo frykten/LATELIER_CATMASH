@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HelloWorld from '@/components/HelloWorld'
 import Home from '@/components/Home'
 import Leaderboard from '@/components/Leaderboard'
 import Browse from '@/components/Browse'
@@ -12,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
     },
     {
       path: '/leaderboard',
@@ -26,5 +25,6 @@ export default new Router({
       component: Browse
   
     }
-  ]
+  ],
+  mode: "history"
 })
