@@ -23,8 +23,7 @@ export default new Router({
       path: '/browse',
       name: 'Browse',
       component: Browse
-  
     }
   ],
-  mode: "history"
+  mode: 'history'
 })

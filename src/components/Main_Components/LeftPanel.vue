@@ -1,7 +1,8 @@
 <template lang="html">
   <div id="left-panel">
-    Smurf
-    <div id="background-left">.</div>
+    <p>
+      Smurf
+    </p>
   </div>
 </template>
 
@@ -11,12 +12,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #background-left {
-    background: lavender;
-    height: 50rem;
-    position: fixed;
+  #left-panel {
+    align-items: center;
+    background: #eff2f6;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    position: absolute;
     top: 0;
     width: 50vw;
-    z-index: -2;
+    z-index: -10;
+  }
+  
+  #left-panel:hover {
+    background: radial-gradient(#eff2f6, hsl(214, 13%, 99%));
+    box-shadow: 0px 0px 15px rgba(20, 20, 20, .5), inset -.5rem 0 rgba(20, 20, 20, .05);
+    z-index: -8;
   }
 </style>

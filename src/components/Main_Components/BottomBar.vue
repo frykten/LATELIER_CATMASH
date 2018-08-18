@@ -1,82 +1,92 @@
 <template lang="html">
   <div id="bot-bar">
-    <a href="/" id="to-home">Smurf...</a>
-    <div id="triangle"></div>
-    
-    <svg id="svg" viewBox="0 0 100 100">
-      <a xlink:href="/leaderboard" id="to-home">
-        <polygon :points="trianglePoints" id="svg-triangle"/>
-      </a>
-    </svg>
+    <router-link :to="linkTo" id="route">
+      <p id="to-home">{{txtMessage}}</p>
+
+      <svg id="svg" :height="svgHeight">
+        <a :xlink:href="linkTo">
+          <polygon :points="trianglePoints" id="svg-triangle"/>
+        </a>
+      </svg>
+    </router-link>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        svgBottom: null,
-        svgCenter: null,
-        svgRight: null,
-      }
-    },
-    computed: {
-      trianglePoints: function() {
-        return`0,${this.svgBottom} ${this.svgRight},${this.svgBottom} ${this.svgCenter},0`;
-      }
-    },
-    methods: {
-      calcView() {
-		let el = document.getElementById('bot-bar');
-		let width = el.clientWidth;
-		let height = el.clientHeight;
-        
-        this.setPoints(width, height);
-        
-        console.log(el);
-        console.log(width);
-        console.log(height);
-        console.log(this.trianglePoints);
-      },
-      setPoints(width, height) {
-        this.svgBottom = height;
-        this.svgCenter = width/2;
-        this.svgRight = width;
-      }
-    },
-    mounted() {
-      this.calcView();
+export default {
+  data () {
+    return {
+      linkTo: '/',
+      svgCenter: null,
+      svgHeight: null,
+      svgWidth: null
     }
+  },
+  computed: {
+    trianglePoints: function () {
+      return `0,${this.svgHeight} ${this.svgWidth},${this.svgHeight} ${this.svgCenter},0`
+    },
+    txtMessage: function () {
+      let msg;
+      
+      if (this.$route.name === 'Home')
+        msg = 'Vote for the prettiest cat', this.linkTo = '/browse'
+      else if (this.$route.name === 'Leaderboard')
+        msg = 'Vote for the prettiest cat', this.linkTo = '/browse'
+      else
+        msg = 'Discover who is the prettiest cat', this.linkTo = '/leaderboard'
+        
+      return msg
+    }
+  },
+  methods: {
+    calcView () {
+      let width = window.innerWidth
+      let height = window.innerHeight / 5
+
+      this.setPoints(width, height)
+    },
+    setPoints (width, height) {
+      this.svgHeight = height
+      this.svgCenter = width / 2
+      this.svgWidth = width
+    }
+  },
+  mounted () {
+    this.calcView()
+    
+    window.addEventListener('resize', () => {
+      this.calcView()
+    })
   }
+}
 </script>
 
 <style lang="scss" scoped>
   #bot-bar {
-    height: 5rem;
-    width: 100vw;
-  }
-  
-  #to-home {
-    color: red;
-  }
-  
-  #svg {
-    height: 5rem;
-    width: 100vw;
-  }
-  
-  #svg-triangle {
-    fill: green;
-    width: 100%;
-  }
-  
-  #triangle {
-    border-left: 50vw solid transparent;
-    border-right: 50vw solid transparent;
-    border-bottom: 10rem solid lightblue;
-    position: fixed;
     bottom: 0;
-    width: 0;
+    position: absolute;
+    width: 100vw;
+    margin-bottom: 5vh;
+  }
+
+  #to-home {
+    color: #eff2f6;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2rem;
+    margin: 0;
+  }
+
+  #svg {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    width: 100vw;
     z-index: -1;
+  }
+
+  #svg-triangle {
+    fill: #446974;
   }
 </style>
