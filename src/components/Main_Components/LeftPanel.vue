@@ -1,13 +1,19 @@
 <template lang="html">
   <div id="left-panel">
-    <p>
-      Smurf
-    </p>
+    <h3>
+      {{message}}
+    </h3>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      message: null,
+      picture: null
+    }
+  },
 }
 </script>
 

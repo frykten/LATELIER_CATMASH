@@ -27,16 +27,7 @@ export default {
       return `0,${this.svgHeight} ${this.svgWidth},${this.svgHeight} ${this.svgCenter},0`
     },
     txtMessage: function () {
-      let msg;
-      
-      if (this.$route.name === 'Home')
-        msg = 'Vote for the prettiest cat', this.linkTo = '/browse'
-      else if (this.$route.name === 'Leaderboard')
-        msg = 'Vote for the prettiest cat', this.linkTo = '/browse'
-      else
-        msg = 'Discover who is the prettiest cat', this.linkTo = '/leaderboard'
-        
-      return msg
+      return this.getMessageToPrint()
     }
   },
   methods: {
@@ -50,11 +41,33 @@ export default {
       this.svgHeight = height
       this.svgCenter = width / 2
       this.svgWidth = width
+    },
+    getMessageToPrint () {
+      let msg
+
+      if (this.$route.name === 'Home')
+        msg = 'Vote for the prettiest cat'
+      else if (this.$route.name === 'Leaderboard')
+        msg = 'Vote for the prettiest cat ever'
+      else
+        msg = 'Discover who is the prettiest cat'
+
+      this.getLinkToFollow(msg)
+
+      return msg
+    },
+    getLinkToFollow (msg) {
+      if (msg[0] != 'D') {
+        this.linkTo = '/browse'
+      }
+      else {
+        this.linkTo = '/leaderboard'
+      }
     }
   },
   mounted () {
     this.calcView()
-    
+
     window.addEventListener('resize', () => {
       this.calcView()
     })

@@ -1,8 +1,8 @@
 <template lang="html">
   <div id="right-panel">
-    <p>
+    <h3>
       Smurf Right
-    </p>
+    </h3>
   </div>
 </template>
 
