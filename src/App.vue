@@ -1,12 +1,17 @@
+/* eslint-disable */
 <template>
   <div id="app">
-<!--    <img src="./assets/cat_logo.png">-->
     <router-view/>
+
     <nav-bar></nav-bar>
+
   	<bot-bar></bot-bar>
+
   	<left-panel></left-panel>
+
   	<div id="middle-bar"></div>
-  	<right-panel></right-panel>
+
+    <right-panel></right-panel>
   </div>
 </template>
 
@@ -49,7 +54,7 @@ export default {
     text-decoration: none;
     outline: none;
   }
-  
+
   #middle-bar {
     background: rgba(20, 20, 20, 0.05);
     position: fixed;

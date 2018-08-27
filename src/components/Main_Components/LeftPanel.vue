@@ -1,8 +1,8 @@
 <template lang="html">
   <div id="left-panel">
-    <h3>
-      {{message}}
-    </h3>
+    <h3 v-if="!!message">{{message}}</h3>
+
+    <img src="/static/cat_logo.png" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!picture">
   </div>
 </template>
 
@@ -10,10 +10,16 @@
 export default {
   data () {
     return {
-      message: null,
       picture: null
     }
   },
+  computed: {
+    message: function() {
+      if (this.$route.name === 'Home')
+        return 'Smurfs'
+      else return null
+    }
+  }
 }
 </script>
 

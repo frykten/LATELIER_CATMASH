@@ -42,7 +42,7 @@ export default {
   },
   mounted () {
     this.calcView()
-    
+
     window.addEventListener('resize', () => {
       this.calcView()
     })
@@ -75,7 +75,7 @@ export default {
     font-variant-caps: all-small-caps;
     margin-top: 2.5rem;
   }
-  
+
 @media screen and (max-height: 800px) {
   #title {
     margin-top: 1rem;
