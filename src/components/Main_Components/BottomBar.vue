@@ -78,7 +78,7 @@ export default {
 <style lang="scss" scoped>
   #bot-bar {
     bottom: 0;
-    position: absolute;
+    position: fixed;
     width: 100vw;
     margin-bottom: 5vh;
   }

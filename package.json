@@ -7,7 +7,7 @@
   "scripts": {
     "vue": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "server": "nodemon index.js",
-    "dev": "npm run dev | npm run vue",
+    "dev": "npm run server | npm run vue",
     "build": "node build/build.js"
   },
   "dependencies": {

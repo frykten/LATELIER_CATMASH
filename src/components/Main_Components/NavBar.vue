@@ -53,7 +53,7 @@ export default {
 <style lang="scss" scoped>
   #nav-bar {
 /*    height: 5rem;*/
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100vw;
   }

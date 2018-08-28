@@ -1,7 +1,10 @@
 <template lang="html">
-  <div id="right-panel">
-    <h3 v-if="!!message">{{message}}</h3>
-
+  <router-link to="/browse" v-if="this.$route.name === 'Home'">
+    <div id="right-panel">
+      <h3 v-if="!!message">{{message}}</h3>
+    </div>
+  </router-link>
+  <div id="right-panel" v-else>
     <img src="/static/cat_logo.png" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!picture">
   </div>
 </template>
@@ -30,7 +33,7 @@ export default {
     display: flex;
     height: 100vh;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     width: 50vw;
