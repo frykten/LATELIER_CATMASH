@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const request = require("request")
+let router = express.Router();
+const request = require("request");
+const bodyParser = require('body-parser');
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
   host     : 'localhost',
@@ -11,6 +13,8 @@ const connection = mysql.createConnection({
 });
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 connection.connect();
 
@@ -52,7 +56,7 @@ function fillTable () {
 
 isTableEmpty();
 
-app.get("/list-of-cats", (req, res) => {
+router.get("/list-of-cats", (req, res) => {
   const q = "SELECT * from catmash";
   connection.query(q, (err, results, fields) => {
     if (err) throw err;
@@ -60,12 +64,25 @@ app.get("/list-of-cats", (req, res) => {
   });
 });
 
-app.get("/two-cats", (req, res) => {
+router.get("/two-cats", (req, res) => {
   const q = "SELECT * FROM catmash ORDER BY RAND() LIMIT 2";
   connection.query(q, (err, results, fields) => {
     if (err) throw err;
     else res.send(results);
   });
 });
+
+router.patch("/update-cat-points", (req, res) => {
+  const q = "UPDATE catmash SET elo_points = ? WHERE id = ?";
+  const newPoints = req.body.catEloPoints;
+  const id = req.body.catId;
+  
+  connection.query(q, [newPoints, id], (err, results, fields) => {
+    if (err) throw err;
+    else res.send(results);
+  });
+});
+
+app.use('/', router);
 
 app.listen(3001);

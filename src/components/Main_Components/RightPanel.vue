@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template lang="html">
   <router-link to="/browse" v-if="this.$route.name === 'Home'">
     <div id="right-panel">
@@ -27,11 +28,10 @@ export default {
   },
   methods: {
     clickMe() {
-      alert("Bouhou!")
-      console.log("???")
+      EventBus.$emit('get-new-cats', this.cat);
     }
   },
-  mounted () {
+  created () {
     EventBus.$on('send-cat-right', (theCat) => {
       this.cat = theCat
     });

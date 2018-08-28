@@ -1,10 +1,11 @@
+/* eslint-disable */
 <template lang="html">
   <router-link to="/leaderboard" v-if="this.$route.name === 'Home'">
     <div id="left-panel">
       <h2 v-if="!!message" id="title">{{message}}</h2>
     </div>
   </router-link>
-  <div id="left-panel" v-else>
+  <div id="left-panel" @click="clickMe()" v-else>
     <img :src="cat.url" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!cat">
   </div>
 </template>
@@ -25,7 +26,12 @@ export default {
       else return null
     }
   },
-  mounted () {
+  methods: {
+    clickMe() {
+      EventBus.$emit('get-new-cats', this.cat);
+    }
+  },
+  created () {
     EventBus.$on('send-cat-left', (theCat) => {
       this.cat = theCat
     });

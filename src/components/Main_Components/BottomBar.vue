@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template lang="html">
   <div id="bot-bar">
     <router-link :to="linkTo" id="route">
@@ -57,7 +58,7 @@ export default {
       return msg
     },
     getLinkToFollow (msg) {
-      if (msg[0] != 'D') {
+      if (msg[0] != 'V') {
         this.linkTo = '/browse'
       }
       else {

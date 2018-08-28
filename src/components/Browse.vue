@@ -1,6 +1,6 @@
+/* eslint-disable */
 <template lang="html">
   <div id="browse">
-    <button @click="click()">Click me</button>
     <button @click="clickList()">Change list</button>
     <h2 id="versus">VS.</h2>
   </div>
@@ -18,7 +18,22 @@ export default {
     }
   },
   created: function () {
-    this.getList ()
+    this.getList()
+    
+    EventBus.$on('get-new-cats', (catWhoWon) => {
+      let winnerCat = catWhoWon, loserCat;
+      
+      if (winnerCat == this.catLeft) {
+        loserCat = this.catRight
+      }
+      else {
+        loserCat = this.catLeft
+      }
+
+      this.updateCatsDatabase(winnerCat, loserCat)
+      
+      this.getList()
+    });
   },
   methods: {
     getList () {
@@ -26,17 +41,69 @@ export default {
         methods: 'get',
         url: 'http://localhost:3001/two-cats'
       }).then((res) => {
-        this.catLeft = res.data[0]
-        this.catRight = res.data[1]
+        this.storeCats(res)
       }).catch((err) => {
         console.warn(err)
       })
     },
-    click () {
-      console.log("From browsing: left cat is "+this.catLeft.id)
-      console.log("From browsing: right cat is "+this.catRight.id)
+    storeCats (res) {
+      this.catLeft = res.data[0]
+      this.catRight = res.data[1]
+      
+      this.emitCatsToPanels();
+    },
+    emitCatsToPanels () {
       EventBus.$emit('send-cat-left', this.catLeft);
       EventBus.$emit('send-cat-right', this.catRight);
+    },
+    updateCatsDatabase (winnerCat, loserCat) {
+      // Processing the new ranking of the winner before sending to DB
+      this.processCat(
+        winnerCat.id,
+        this.getNewPointsWinner(
+          winnerCat.elo_points,
+          this.calcProbability(
+            loserCat.elo_points,
+            winnerCat.elo_points
+          )
+        )
+      )
+      
+      // Processing the new ranking of the loser before sending to DB
+      this.processCat(
+        loserCat.id,
+        this.getNewPointsLoser(
+          loserCat.elo_points,
+          this.calcProbability(
+            winnerCat.elo_points,
+            loserCat.elo_points
+          )
+        )
+      )
+    },
+    processCat(catId, catNewRanking) {
+      console.warn(`The cat to boost is: ${catId}`)
+      console.warn(`His ranking is now: ${catNewRanking}`)
+      axios.patch('http://localhost:3001/update-cat-points',
+        {
+          catEloPoints: catNewRanking,
+          catId: catId
+        }
+      ).then((res) => {
+        console.log(res)
+        console.log(`Happened to: ${catId}`)
+      }).catch((err) => {
+        console.warn(err)
+      })
+    },
+    calcProbability(ratingA, ratingB) {
+      return 1 * 1 / (1 + 1 * Math.pow(10, (ratingA - ratingB) / 400))
+    },
+    getNewPointsWinner(ratingWinner, pWinner) {
+      return ratingWinner + 40 * (1 - pWinner)
+    },
+    getNewPointsLoser(ratingLoser, pLoser) {
+      return ratingLoser + 40 * (0 - pLoser)
     },
     clickList () {
       this.getList()
@@ -46,21 +113,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
-  #browse {
-    align-items: center;
-    display: flex;
-    height: 100vh;
-    justify-content: center;
+  #versus, button {
+    font-size: 4rem;
+    left: calc(50vw - 52px);
     position: absolute;
-    width: 100vw;
-    z-index: -20;
-  }
-*/
-  
-  #browse * {
-    position: relative;
-    z-index: 20;
-    text-align: center;
+    top: calc(50vh - 2rem);
+    cursor: default;
+    z-index: 2;
   }
 </style>

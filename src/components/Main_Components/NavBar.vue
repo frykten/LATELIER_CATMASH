@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template lang="html">
   <div id="nav-bar">
     <router-link to="/">
