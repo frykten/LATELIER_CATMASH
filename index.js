@@ -60,4 +60,12 @@ app.get("/list-of-cats", (req, res) => {
   });
 });
 
+app.get("/two-cats", (req, res) => {
+  const q = "SELECT * FROM catmash ORDER BY RAND() LIMIT 2";
+  connection.query(q, (err, results, fields) => {
+    if (err) throw err;
+    else res.send(results);
+  });
+});
+
 app.listen(3001);

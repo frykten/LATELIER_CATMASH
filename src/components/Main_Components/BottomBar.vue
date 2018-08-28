@@ -33,7 +33,7 @@ export default {
   methods: {
     calcView () {
       let width = window.innerWidth
-      let height = window.innerHeight / 5
+      let height = window.innerHeight / 7
 
       this.setPoints(width, height)
     },
@@ -46,11 +46,11 @@ export default {
       let msg
 
       if (this.$route.name === 'Home')
-        msg = 'Vote for the prettiest cat'
+        msg = 'A website to vote for the prettiest cat'
       else if (this.$route.name === 'Leaderboard')
-        msg = 'Vote for the prettiest cat ever'
-      else
         msg = 'Discover who is the prettiest cat'
+      else
+        msg = 'Vote for the prettiest cat ever'
 
       this.getLinkToFollow(msg)
 
@@ -80,7 +80,7 @@ export default {
     bottom: 0;
     position: fixed;
     width: 100vw;
-    margin-bottom: 5vh;
+    margin-bottom: 4vh;
   }
 
   #to-home {

@@ -1,27 +1,40 @@
 <template lang="html">
   <router-link to="/browse" v-if="this.$route.name === 'Home'">
     <div id="right-panel">
-      <h3 v-if="!!message">{{message}}</h3>
+      <h2 v-if="!!message" id="title">{{message}}</h2>
     </div>
   </router-link>
-  <div id="right-panel" v-else>
-    <img src="/static/cat_logo.png" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!picture">
+  <div id="right-panel" @click="clickMe()" v-else>
+    <img :src="cat.url" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!cat">
   </div>
 </template>
 
 <script>
+import { EventBus } from '../../eventBus.js';
+
 export default {
   data () {
     return {
-      picture: null
+      cat: null
     }
   },
   computed: {
     message: function() {
       if (this.$route.name === 'Home')
-        return 'Smurfs'
+        return 'Vote Challenge'
       else return null
     }
+  },
+  methods: {
+    clickMe() {
+      alert("Bouhou!")
+      console.log("???")
+    }
+  },
+  mounted () {
+    EventBus.$on('send-cat-right', (theCat) => {
+      this.cat = theCat
+    });
   }
 }
 </script>
@@ -44,5 +57,18 @@ export default {
     background: radial-gradient(#f3f2f7, hsl(240, 0%, 99%));
     box-shadow: 0px 0px 15px rgba(20, 20, 20, .5), inset .5rem 0 rgba(20, 20, 20, .05);
     z-index: -8;
+  }
+
+  #title {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+
+  #cat-picture {
+    border: solid 2rem rgba(68, 105, 116, .5);
+    border-radius: 80% 0px 55% 50% / 55% 0px 80% 50%;
+    object-fit: cover;
+    height: 25vw;
+    width: 25vw;
   }
 </style>

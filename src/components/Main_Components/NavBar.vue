@@ -30,7 +30,7 @@ export default {
   methods: {
     calcView () {
       let width = window.innerWidth
-      let height = window.innerHeight / 5
+      let height = window.innerHeight / 6
 
       this.setPoints(width, height)
     },
@@ -52,7 +52,6 @@ export default {
 
 <style lang="scss" scoped>
   #nav-bar {
-/*    height: 5rem;*/
     position: fixed;
     top: 0;
     width: 100vw;
@@ -63,7 +62,7 @@ export default {
   }
 
   #logo-cat {
-    margin-top: -5rem;
+    margin-top: -6rem;
     width: 12.5rem;
   }
 
@@ -73,7 +72,7 @@ export default {
     font-size: 5rem;
     line-height: 5rem;
     font-variant-caps: all-small-caps;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
   }
 
 @media screen and (max-height: 800px) {

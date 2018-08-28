@@ -44,7 +44,6 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 1.25rem;
-    margin-top: 60px;
     text-align: center;
     width: 100vw;
   }
