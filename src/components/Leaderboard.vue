@@ -46,7 +46,7 @@ export default {
         methods: 'get',
         url: 'http://localhost:3001/list-of-cats'
       }).then((res) => {
-        this.catList = res.data.sort(function(a, b){return a - b})
+        this.catList = res.data.sort(function(a, b){return b.elo_points - a.elo_points})
       }).catch((err) => {
         console.warn(err)
       })

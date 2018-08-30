@@ -5,8 +5,10 @@
       <h2 v-if="!!message" id="title">{{message}}</h2>
     </div>
   </router-link>
-  <div id="left-panel" @click="clickMe()" v-else>
+  <div id="left-panel" @click="clickMe()" v-else-if="this.$route.name === 'Browse'">
     <img :src="cat.url" alt="Picture of a really pretty cat... Or not." id="cat-picture" v-if="!!cat">
+  </div>
+  <div id="left-panel" @click="clickMe()" v-else>
   </div>
 </template>
 

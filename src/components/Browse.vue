@@ -1,7 +1,6 @@
 /* eslint-disable */
 <template lang="html">
   <div id="browse">
-    <button @click="clickList()">Change list</button>
     <h2 id="versus">VS.</h2>
   </div>
 </template>
@@ -82,17 +81,12 @@ export default {
       )
     },
     processCat(catId, catNewRanking) {
-      console.warn(`The cat to boost is: ${catId}`)
-      console.warn(`His ranking is now: ${catNewRanking}`)
       axios.patch('http://localhost:3001/update-cat-points',
         {
           catEloPoints: catNewRanking,
           catId: catId
         }
-      ).then((res) => {
-        console.log(res)
-        console.log(`Happened to: ${catId}`)
-      }).catch((err) => {
+      ).catch((err) => {
         console.warn(err)
       })
     },
@@ -104,9 +98,6 @@ export default {
     },
     getNewPointsLoser(ratingLoser, pLoser) {
       return ratingLoser + 40 * (0 - pLoser)
-    },
-    clickList () {
-      this.getList()
     }
   }
 }
