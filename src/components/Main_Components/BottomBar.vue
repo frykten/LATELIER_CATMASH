@@ -81,7 +81,7 @@ export default {
     bottom: 0;
     position: fixed;
     width: 100vw;
-    margin-bottom: 4vh;
+    margin-bottom: 3vh;
   }
 
   #to-home {

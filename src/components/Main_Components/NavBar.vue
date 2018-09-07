@@ -73,14 +73,8 @@ export default {
     font-size: 5rem;
     line-height: 5rem;
     font-variant-caps: all-small-caps;
-    margin-top: 1.5rem;
-  }
-
-@media screen and (max-height: 800px) {
-  #title {
     margin-top: 1rem;
   }
-}
 
   #svg {
 /*    height: 5rem;*/
